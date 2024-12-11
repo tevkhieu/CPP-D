@@ -18,7 +18,7 @@ private :
    static const T          white[];
 
    int                     width, height;
-   std::vector<Bug*>   listePBugs;
+   std::vector<Bug*>   listeBugs;
    float birthRate, cloneRate;
    float angularVisionMin, angularVisionMax;
    float visionDisanceMin, visionDistanceMax;

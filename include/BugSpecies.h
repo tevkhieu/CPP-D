@@ -2,3 +2,5 @@
 #define _BUGSPECIES_H_
 
 class BugSpecies: public Bug {};
+
+#endif
