@@ -1,24 +1,11 @@
 #include "Foreseeing.h"
-#include <iostream>
+#include "Environment.h"  // Include full definition of Environment
+#include "Bug.h"           // Include full definition of Bug
+#include <cmath>           // For cos, sin, etc.
 
-#define M_PI 3.14159265358979323846
-
-Foreseeing::Foreseeing() {}
-
-Foreseeing::~Foreseeing() {}
-
-void Foreseeing::move(Environment & monEnvironment, Bug & b) {
-    std::cout << "Foreseeing is carefully planning its movement!" << std::endl;
-    int            xLim = monEnvironment.getWidth();
-    int            yLim = monEnvironment.getHeight();
-    double         orientation;
-    double         vitesse;
-    float          dx, dy;
-    double         nx, ny;
-    int            cx, cy;
-
-    double nearestBugOrientation;
-    double nearestBugVitesse;
+void Foreseeing::move(Environment &monEnvironment, Bug &b) {
+    int xLim = monEnvironment.getWidth();
+    int yLim = monEnvironment.getHeight();
 
     b.cumulX = cumulX;
     b.cumulY = cumulY;
@@ -26,34 +13,36 @@ void Foreseeing::move(Environment & monEnvironment, Bug & b) {
     b.vitesse = vitesse;
 
     Bug *closestBug = monEnvironment.closestNeighbour(b);
-    nearestBugOrientation = closestBug->getOrientation();
-    nearestBugVitesse = closestBug->getVitesse();
-
-    dx = cos( nearestBugOrientation )*vitesse;
-    dy = sin( nearestBugOrientation )*vitesse;
-
-    cx = static_cast<int>( b.getCumulX() ); b.setCumulX(b.getCumulX() - cx);
-    cy = static_cast<int>( b.getCumulY() ); b.setCumulY(b.getCumulY() - cy);
-
-    nx = b.getX() + dx + cx;
-    ny = b.getY() + dy + cy;
-
-    if ( (nx < 0) || (nx > xLim - 1) ) {
-        b.setOrientation( M_PI - orientation);
-        b.setCumulX(0.);
+    if (closestBug) {
+        nearestBugOrientation = closestBug->getOrientation();
+        nearestBugVitesse = closestBug->getVitesse();
     }
-    else {
-        b.x = static_cast<int>( nx );
+
+    dx = std::cos(nearestBugOrientation) * vitesse;
+    dy = std::sin(nearestBugOrientation) * vitesse;
+
+    int cx = static_cast<int>(b.getCumulX());
+    b.setCumulX(b.getCumulX() - cx);
+
+    int cy = static_cast<int>(b.getCumulY());
+    b.setCumulY(b.getCumulY() - cy);
+
+    int nx = b.getX() + dx + cx;
+    int ny = b.getY() + dy + cy;
+
+    if (nx < 0 || nx >= xLim) {
+        b.setOrientation(M_PI - orientation);
+        b.setCumulX(0.0);
+    } else {
+        b.setX(static_cast<int>(nx));
         b.setCumulX(nx - b.getX());
     }
 
-    if ( (ny < 0) || (ny > yLim - 1) ) {
+    if (ny < 0 || ny >= yLim) {
         b.setOrientation(-orientation);
-        b.setCumulY(0.);
-    }
-    else {
-        b.y = static_cast<int>( ny );
+        b.setCumulY(0.0);
+    } else {
+        b.setY(static_cast<int>(ny));
         b.setCumulY(ny - b.getY());
     }
-
 }
