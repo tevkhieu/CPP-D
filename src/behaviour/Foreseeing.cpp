@@ -6,12 +6,7 @@
 void Foreseeing::move(Environment &monEnvironment, Bug &b) {
     int xLim = monEnvironment.getWidth();
     int yLim = monEnvironment.getHeight();
-
-    b.cumulX = cumulX;
-    b.cumulY = cumulY;
-    b.orientation = orientation;
-    b.vitesse = vitesse;
-
+    
     Bug *closestBug = monEnvironment.closestNeighbour(b);
     if (closestBug) {
         nearestBugOrientation = closestBug->getOrientation();
