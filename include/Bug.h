@@ -46,8 +46,20 @@ public :
    void draw( UImg & support );
 
    void detect( const Bug & b ) const;
+   
    double getOrientation() const { return orientation; };
    double getVitesse() const { return vitesse; };
+   int getX() const { return x; };
+   int getY() const { return y; };
+   double getCumulX() const { return cumulX; };
+   double getCumulY() const { return cumulY; };
+   void setOrientation(double orientation) { this->orientation = orientation; };
+   void setVitesse(double vitesse) { this->vitesse = vitesse; };
+   void setX(int x) { this->x = x; };
+   void setY(int y) { this->y = y; };
+   void setCumulX(double cumulX) { this->cumulX = cumulX; };
+   void setCumulY(double cumulY) { this->cumulY = cumulY; };
+
 
    void initCoords( int xLim, int yLim );
 
@@ -55,6 +67,7 @@ public :
 
    bool dieOldAge(Environment & monEnvironment);
    void die();
+   
    Behaviour *getBehaviour() { return behaviour;}
    void setBehaviour(Behaviour *behaviour) { this->behaviour = behaviour;}
 

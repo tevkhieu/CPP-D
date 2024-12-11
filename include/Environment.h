@@ -41,7 +41,7 @@ public :
 
    void step( void );
 
-   void addMember( const Bug & b ) { listeBugs.push_back(b); listeBugs.back().initCoords(width, height); }
+   void addMember( const Bug & b ) {};
    int nbNeighbours( const Bug & b );
    Bug* closestNeighbour (const Bug & b);
 
